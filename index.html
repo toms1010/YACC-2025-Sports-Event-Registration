@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YACC 2025 Sports Event Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #1e3a8a;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --background: #f8fafc;
+            --text: #1f2937;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(30, 58, 138, 0.9));
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(245,158,11,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-logo {
+            max-width: 300px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-logo img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--background);
+            border-radius: 30px 30px 0 0;
+            margin-top: -30px;
+            position: relative;
+            box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Alert Banners */
+        .alert-banner {
+            background: linear-gradient(135deg, var(--warning), var(--danger));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .alert-banner i {
+            margin-right: 0.5rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Sport Card */
+        .sport-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .sport-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .sport-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        .sport-card.selected {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, #fef3c7, #ffffff);
+        }
+
+        .sport-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .sport-card:hover .sport-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .sport-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .sport-type {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .sport-players {
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--accent), #eab308);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            margin-right: 1rem;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+        }
+
+        /* Form Styling */
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .form-section {
+            margin-bottom: 3rem;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+            outline: none;
+        }
+
+        /* Error States */
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Selected Sports Display */
+        .selected-sports {
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Team Members Section */
+        .team-section {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .member-row {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1.5rem;
+            animation: bounce 1s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .admin-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+        }
+
+        .registration-item {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        /* Rules Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90vh;
+            width: 800px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+
+        .toast.info {
+            border-left-color: var(--primary);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--danger);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--warning);
+        }
+
+        .toast.info .toast-icon {
+            color: var(--primary);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-logo {
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 4rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-logo {
+                max-width: 150px;
+            }
+        }
+
+        /* Navigation Buttons */
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Equipment Notice */
+        .equipment-notice {
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .equipment-notice i {
+            color: var(--warning);
+            margin-right: 8px;
+        }
+
+        /* Password Protected */
+        .password-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .password-input {
+            padding: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            width: 300px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Panel (Hidden by default) -->
+    <section id="admin-panel" class="section" style="display: none;">
+        <div class="container">
+            <div class="navigation-buttons">
+                <button class="btn btn-back" onclick="showSportsSection()">
+                    <i class="fas fa-arrow-left"></i> Back to Registration
+                </button>
+            </div>
+            
+            <h2 class="section-title">Admin Panel</h2>
+            
+            <div class="admin-panel">
+                <div class="alert-banner">
+                    <i class="fas fa-lock"></i>
+                    <strong>Admin Access Only</strong>
+                    <p>This section is for YACC 2025 administrators only</p>
+                </div>
+
+                <div class="stats-grid" id="stats-grid">
+                    <!-- Stats will be loaded here -->
+                </div>
+
+                <div class="admin-section">
+                    <h3 class="form-title">All Registrations</h3>
+                    <div id="all-registrations">
+                        <!-- Registrations will be loaded here -->
+                    </div>
+                    <div class="navigation-buttons">
+                        <button class="btn" onclick="exportRegistrations()">
+                            <i class="fas fa-download"></i> Export as CSV
+                        </button>
+                        <button class="btn btn-danger" onclick="clearAllData()">
+                            <i class="fas fa-trash"></i> Clear All Data
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admin-section">
+                    <h3 class="form-title">Send Notifications</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Send Email to All Participants</label>
+                            <button class="btn" onclick="sendBulkEmail()">
+                                <i class="fas fa-envelope"></i> Compose Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Registration Content -->
+    <div id="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>YACC 2025</h1>
+                            <p>Sports Event Registration</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn" onclick="scrollToSection('sports')">
+                            <i class="fas fa-play-circle"></i> Get Started
+                        </button>
+                        <button class="btn btn-secondary" onclick="showAdminLogin()" style="margin-left: 10px;">
+                            <i class="fas fa-user-shield"></i> Admin
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-logo">
+                        <i class="fas fa-trophy" style="font-size: 100px; color: white;"></i>
+                    </div>
+                    <h1>YACC 2025 Sports Event Registration</h1>
+                    <p>Register for your favorite sports and showcase your skills at the biggest youth event of the year!</p>
+                    <button class="btn btn-secondary" onclick="scrollToSection('sports')">
+                        <i class="fas fa-running"></i> Register Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                
+                <!-- Sports Selection Section -->
+                <section id="sports" class="section">
+                    <h2 class="section-title">Available Sports</h2>
+                    
+                    <!-- Alert Banners -->
+                    <div class="alert-banner">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Registration Deadline: December 20, 2025</strong>
+                        <p>No exceptions will be made after this date</p>
+                    </div>
+
+                    <div class="alert-banner" style="background: linear-gradient(135deg, var(--danger), #dc2626);">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Important Notice:</strong> Players can only participate in ONE sport event according to YACC 2025 rules
+                    </div>
+
+                    <!-- Sports Grid -->
+                    <div class="cards-grid">
+                        <!-- Chess -->
+                        <div class="sport-card" data-sport="chess">
+                            <div class="sport-icon">
+                                <i class="fas fa-chess"></i>
+                            </div>
+                            <h3>Chess</h3>
+                            <p class="sport-type">Individual (Men & Women)</p>
+                            <span class="sport-players">1 player</span>
+                        </div>
+
+                        <!-- Dama -->
+                        <div class="sport-card" data-sport="dama">
+                            <div class="sport-icon">
+                                <i class="fas fa-chess-board"></i>
+                            </div>
+                            <h3>Dama</h3>
+                            <p class="sport-type">Individual (Men & Women)</p>
+                            <span class="sport-players">1 player</span>
+                        </div>
+
+                        <!-- Basketball -->
+                        <div class="sport-card" data-sport="basketball">
+                            <div class="sport-icon">
+                                <i class="fas fa-basketball-ball"></i>
+                            </div>
+                            <h3>Basketball</h3>
+                            <p class="sport-type">Team Sport</p>
+                            <span class="sport-players">15 players + coach</span>
+                        </div>
+
+                        <!-- Volleyball -->
+                        <div class="sport-card" data-sport="volleyball">
+                            <div class="sport-icon">
+                                <i class="fas fa-volleyball-ball"></i>
+                            </div>
+                            <h3>Volleyball</h3>
+                            <p class="sport-type">Team Sport (Men & Women)</p>
+                            <span class="sport-players">12 players + coach</span>
+                        </div>
+
+                        <!-- Track & Field -->
+                        <div class="sport-card" data-sport="track-field">
+                            <div class="sport-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <h3>Track & Field</h3>
+                            <p class="sport-type">Individual & Team</p>
+                            <span class="sport-players">1-4 players + coach</span>
+                        </div>
+
+                        <!-- Table Tennis -->
+                        <div class="sport-card" data-sport="table-tennis">
+                            <div class="sport-icon">
+                                <i class="fas fa-table-tennis"></i>
+                            </div>
+                            <h3>Table Tennis</h3>
+                            <p class="sport-type">Individual (Men & Women)</p>
+                            <span class="sport-players">1 player</span>
+                        </div>
+
+                        <!-- Badminton -->
+                        <div class="sport-card" data-sport="badminton">
+                            <div class="sport-icon">
+                                <i class="fas fa-table-tennis"></i>
+                            </div>
+                            <h3>Badminton</h3>
+                            <p class="sport-type">Individual (Men & Women)</p>
+                            <span class="sport-players">1 player</span>
+                        </div>
+
+                        <!-- Scrabble -->
+                        <div class="sport-card" data-sport="scrabble">
+                            <div class="sport-icon">
+                                <i class="fas fa-font"></i>
+                            </div>
+                            <h3>Scrabble</h3>
+                            <p class="sport-type">Individual (Men & Women)</p>
+                            <span class="sport-players">1 player</span>
+                        </div>
+
+                        <!-- Bible Quiz Bee -->
+                        <div class="sport-card" data-sport="bible-quiz">
+                            <div class="sport-icon">
+                                <i class="fas fa-bible"></i>
+                            </div>
+                            <h3>Bible Quiz Bee</h3>
+                            <p class="sport-type">Team Competition</p>
+                            <span class="sport-players">3-5 players</span>
+                        </div>
+                    </div>
+
+                    <!-- Selected Sports Summary -->
+                    <div id="selected-sports-summary" style="display: none;">
+                        <div class="selected-sports">
+                            <h3><i class="fas fa-check-circle"></i> Selected Sport</h3>
+                            <div id="selected-sports-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <button class="btn" id="continue-btn" onclick="showRegistrationForm()">
+                            <i class="fas fa-arrow-right"></i> Continue to Registration
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Registration Form Section -->
+                <section id="form" class="section" style="display: none;">
+                    <div class="navigation-buttons">
+                        <button class="btn btn-back" onclick="showSportsSection()">
+                            <i class="fas fa-arrow-left"></i> Back to Sports
+                        </button>
+                    </div>
+                    
+                    <h2 class="section-title">Registration Form</h2>
+                    
+                    <div class="form-container">
+                        <div class="alert-banner">
+                            <i class="fas fa-clock"></i>
+                            <strong>Registration Deadline: December 20, 2025</strong>
+                            <p>Complete your registration before the deadline</p>
+                        </div>
+
+                        <form id="registrationForm">
+                            <!-- Personal Information -->
+                            <div class="form-section">
+                                <h3 class="form-title">Personal Information</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="full-name">Full Name *</label>
+                                        <input type="text" id="full-name" placeholder="Enter your full name" required>
+                                        <div class="error-message">Full name must be at least 3 characters.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="age">Age *</label>
+                                        <input type="number" id="age" placeholder="Your age" min="10" max="99" required>
+                                        <div class="error-message">Age must be between 10 and 99.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender *</label>
+                                        <select id="gender" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                        <div class="error-message">Please select your gender.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contact">Contact Number *</label>
+                                        <input type="tel" id="contact" placeholder="09123456789" pattern="[0-9]{11}" required>
+                                        <div class="error-message">Contact number must be exactly 11 digits.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address *</label>
+                                        <input type="email" id="email" placeholder="your.email@example.com" required>
+                                        <div class="error-message">Please enter a valid email address.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="organization">Organization/Church *</label>
+                                        <input type="text" id="organization" placeholder="Your church or organization" required>
+                                        <div class="error-message">Organization/Church is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="island">Island Representation</label>
+                                        <input type="text" id="island" placeholder="Your island (optional)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Selected Sport Display -->
+                            <div class="form-section">
+                                <h3 class="form-title">Selected Sport</h3>
+                                <div id="selected-sports-display" class="selected-sports">
+                                    No sport selected yet.
+                                </div>
+                            </div>
+
+                            <!-- Dynamic Forms Container -->
+                            <div id="dynamic-forms-container"></div>
+
+                            <!-- Equipment Notices -->
+                            <div id="equipment-notices-container"></div>
+
+                            <!-- Rules Acceptance -->
+                            <div class="form-section">
+                                <div class="form-group">
+                                    <label style="display: flex; align-items: center; gap: 1rem;">
+                                        <input type="checkbox" id="accept-rules" required style="width: auto;">
+                                        <span>I have read and agree to the <a href="#" onclick="showRulesModal()" style="color: var(--primary); text-decoration: underline;">Rules and Regulations</a> *</span>
+                                    </label>
+                                    <div class="error-message">You must accept the rules and regulations to continue.</div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div style="text-align: center;">
+                                <button type="button" class="btn" id="submit-btn" onclick="validateAndSubmitForm()">
+                                    <i class="fas fa-paper-plane"></i> Submit Registration
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Success Message -->
+                <section id="success" class="section" style="display: none;">
+                    <div class="success-message">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Registration Successful!</h2>
+                        <p>Thank you for registering for YACC 2025 Sports Event.</p>
+                        <p>Your Registration ID: <strong id="registration-id"></strong></p>
+                        <p>Please check your email for confirmation. If you don't see it, check your spam folder.</p>
+                        <div class="navigation-buttons">
+                            <button class="btn" onclick="location.reload()">
+                                <i class="fas fa-plus"></i> Register Another Participant
+                            </button>
+                            <button class="btn btn-secondary" onclick="showSportsSection()">
+                                <i class="fas fa-home"></i> Back to Home
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Rules Modal -->
+        <div class="modal-overlay" id="rules-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">YACC 2025 Tournament Rules & Guidelines</h2>
+                    <button class="modal-close" onclick="closeRulesModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="rules-content">
+                    <!-- Rules content will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Login Modal -->
+        <div class="modal-overlay" id="admin-login-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Admin Login</h2>
+                    <button class="modal-close" onclick="closeAdminLogin()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="password-section">
+                    <h3>Enter Admin Password</h3>
+                    <input type="password" id="admin-password" class="password-input" placeholder="Enter password">
+                    <button class="btn" onclick="checkAdminPassword()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">
+                        Default password: <code>yacc2025admin</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Container -->
+        <div class="toast-container" id="toast-container"></div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Contact Information</h3>
+                        <p><i class="fas fa-user-tie"></i> Pstr. Joven Borja</p>
+                        <p>Chairman of Sports</p>
+                        <p><i class="fas fa-phone"></i> 0927-818-2968</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Email & Social</h3>
+                        <p><i class="fas fa-envelope"></i> yacc2025connect@gmail.com</p>
+                        <p><i class="fab fa-facebook"></i> YACC 2025 Sports</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Event Details</h3>
+                        <p><i class="fas fa-calendar"></i> December 26-30, 2025</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Anilao National High School, Iloilo</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // MAIN APPLICATION - NO API VERSION
+        // ============================================
+
+        // Global variables
+        let selectedSports = [];
+        let registrations = JSON.parse(localStorage.getItem('yacc_registrations') || '[]');
+        const ADMIN_PASSWORD = 'yacc2025admin';
+
+        // Sports data
+        const sportsData = {
+            'chess': { 
+                name: 'Chess', 
+                type: 'individual', 
+                players: 1,
+                equipment: 'Bring your own chess board and pieces',
+                coachRequired: false
+            },
+            'dama': { 
+                name: 'Dama', 
+                type: 'individual', 
+                players: 1,
+                equipment: 'Bring your own board and pieces',
+                coachRequired: false
+            },
+            'basketball': { 
+                name: 'Basketball', 
+                type: 'team', 
+                players: 15,
+                equipment: 'Standard equipment provided',
+                coachRequired: true
+            },
+            'volleyball': { 
+                name: 'Volleyball', 
+                type: 'team', 
+                players: 12,
+                equipment: 'Standard equipment provided',
+                coachRequired: true
+            },
+            'track-field': { 
+                name: 'Track & Field', 
+                type: 'mixed', 
+                players: 4,
+                equipment: 'Standard equipment provided',
+                coachRequired: false
+            },
+            'table-tennis': { 
+                name: 'Table Tennis', 
+                type: 'individual', 
+                players: 1,
+                equipment: 'Bring your own paddles',
+                coachRequired: false
+            },
+            'badminton': { 
+                name: 'Badminton', 
+                type: 'individual', 
+                players: 1,
+                equipment: 'Bring your own rackets',
+                coachRequired: false
+            },
+            'scrabble': { 
+                name: 'Scrabble', 
+                type: 'individual', 
+                players: 1,
+                equipment: 'Bring your own board and dictionary',
+                coachRequired: false
+            },
+            'bible-quiz': { 
+                name: 'Bible Quiz Bee', 
+                type: 'team', 
+                players: 5,
+                equipment: 'NIV Bible required',
+                coachRequired: false
+            }
+        };
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('YACC 2025 Registration System Initialized');
+            console.log('Total registrations:', registrations.length);
+            
+            // Initialize sport cards
+            document.querySelectorAll('.sport-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const sportId = this.getAttribute('data-sport');
+                    selectSport(sportId);
+                });
+            });
+
+            // Setup form validation
+            setupFormValidation();
+            
+            // Check URL parameters
+            checkUrlParameters();
+        });
+
+        // ============================================
+        // SPORT SELECTION FUNCTIONS
+        // ============================================
+
+        function selectSport(sportId) {
+            const sportData = sportsData[sportId];
+            
+            if (!sportData) {
+                showToast('Sport not found!', 'error');
+                return;
+            }
+            
+            // Remove previous selection
+            document.querySelectorAll('.sport-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add current selection
+            const selectedCard = document.querySelector(`[data-sport="${sportId}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+            }
+            
+            // Update selected sports array (only one sport allowed)
+            selectedSports = [{
+                id: sportId,
+                name: sportData.name,
+                type: sportData.type,
+                players: sportData.players,
+                coachRequired: sportData.coachRequired,
+                equipment: sportData.equipment
+            }];
+            
+            updateSelectedSportsDisplay();
+            showToast(`Selected: ${sportData.name}`, 'success');
+        }
+
+        function updateSelectedSportsDisplay() {
+            const summaryElement = document.getElementById('selected-sports-summary');
+            const listElement = document.getElementById('selected-sports-list');
+            
+            if (selectedSports.length > 0) {
+                summaryElement.style.display = 'block';
+                let html = '';
+                selectedSports.forEach(sport => {
+                    html += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: white; border-radius: 10px; margin: 1rem 0;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--secondary);">${sport.name}</h4>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text); opacity: 0.8;">
+                                    ${sport.type === 'team' ? `Team - ${sport.players} players` : 'Individual'}
+                                    ${sport.coachRequired ? ' + Coach Required' : ''}
+                                </p>
+                            </div>
+                            <button onclick="deselectSport('${sport.id}')" style="background: var(--danger); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
+                                <i class="fas fa-times"></i> Remove
+                            </button>
+                        </div>
+                    `;
+                });
+                listElement.innerHTML = html;
+            } else {
+                summaryElement.style.display = 'none';
+            }
+        }
+
+        function deselectSport(sportId) {
+            selectedSports = selectedSports.filter(sport => sport.id !== sportId);
+            document.querySelector(`[data-sport="${sportId}"]`).classList.remove('selected');
+            updateSelectedSportsDisplay();
+            showToast('Sport deselected', 'info');
+        }
+
+        // ============================================
+        // FORM NAVIGATION FUNCTIONS
+        // ============================================
+
+        function showRegistrationForm() {
+            if (selectedSports.length === 0) {
+                showToast('Please select a sport to continue.', 'warning');
+                return;
+            }
+            
+            document.getElementById('sports').style.display = 'none';
+            document.getElementById('form').style.display = 'block';
+            
+            updateFormSportsDisplay();
+            generateDynamicForms();
+            
+            document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+            showToast('Proceed to registration form', 'success');
+        }
+
+        function showSportsSection() {
+            document.getElementById('form').style.display = 'none';
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('sports').style.display = 'block';
+            document.getElementById('sports').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateFormSportsDisplay() {
+            const displayElement = document.getElementById('selected-sports-display');
+            if (selectedSports.length > 0) {
+                let html = '<div style="text-align: center;">';
+                selectedSports.forEach(sport => {
+                    html += `
+                        <h3 style="color: var(--success); margin-bottom: 1rem;">
+                            <i class="fas fa-check-circle"></i> ${sport.name}
+                        </h3>
+                        <p>${sport.type === 'team' ? `Team Sport - ${sport.players} players` : 'Individual Competition'}</p>
+                        ${sport.coachRequired ? '<p><strong>Coach Required:</strong> Ordained Pastor or Youth Leader</p>' : ''}
+                        ${sport.equipment !== 'Standard equipment provided' ? `<p><strong>Equipment:</strong> ${sport.equipment}</p>` : ''}
+                    `;
+                });
+                html += '</div>';
+                displayElement.innerHTML = html;
+            }
+        }
+
+        function generateDynamicForms() {
+            const container = document.getElementById('dynamic-forms-container');
+            const equipmentContainer = document.getElementById('equipment-notices-container');
+            container.innerHTML = '';
+            equipmentContainer.innerHTML = '';
+            
+            selectedSports.forEach(sport => {
+                const sportData = sportsData[sport.id];
+                
+                // Equipment notice
+                if (sportData.equipment && !sportData.equipment.includes('provided')) {
+                    const equipmentNotice = document.createElement('div');
+                    equipmentNotice.className = 'equipment-notice';
+                    equipmentNotice.innerHTML = `
+                        <i class="fas fa-tools"></i>
+                        <strong>${sport.name} Equipment Notice:</strong> ${sportData.equipment}
+                    `;
+                    equipmentContainer.appendChild(equipmentNotice);
+                }
+                
+                // Team members form for team sports
+                if (sport.type === 'team') {
+                    const requiredMembers = sport.players - 1;
+                    const teamForm = document.createElement('div');
+                    teamForm.className = 'form-section team-section';
+                    teamForm.innerHTML = `
+                        <h3 class="form-title">${sport.name} - Team Members</h3>
+                        <p>Please provide information for your ${requiredMembers} team member${requiredMembers > 1 ? 's' : ''}:</p>
+                        <div id="team-members-${sport.id}"></div>
+                    `;
+                    container.appendChild(teamForm);
+                    
+                    for (let i = 1; i <= requiredMembers; i++) {
+                        createTeamMemberForm(sport.id, i);
+                    }
+                }
+                
+                // Coach form for sports requiring coaches
+                if (sport.coachRequired) {
+                    const coachForm = document.createElement('div');
+                    coachForm.className = 'form-section team-section';
+                    coachForm.innerHTML = `
+                        <h3 class="form-title">${sport.name} - Coach Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Coach Full Name *</label>
+                                <input type="text" id="coach-name-${sport.id}" placeholder="Coach's full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Position *</label>
+                                <select id="coach-position-${sport.id}" required>
+                                    <option value="">Select Position</option>
+                                    <option value="Pastor">Ordained Pastor</option>
+                                    <option value="Youth Leader">Youth Leader</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Number *</label>
+                                <input type="tel" id="coach-contact-${sport.id}" placeholder="Coach's contact number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Church/Organization *</label>
+                                <input type="text" id="coach-organization-${sport.id}" placeholder="Coach's organization" required>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(coachForm);
+                }
+            });
+        }
+
+        function createTeamMemberForm(sportId, memberNumber) {
+            const container = document.getElementById(`team-members-${sportId}`);
+            if (!container) return;
+            
+            const memberForm = document.createElement('div');
+            memberForm.className = 'member-row';
+            memberForm.innerHTML = `
+                <h4 style="margin-bottom: 1rem; color: var(--primary);">Team Member ${memberNumber}</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="team-member-name-${sportId}-${memberNumber}" placeholder="Member's full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age *</label>
+                        <input type="number" id="team-member-age-${sportId}-${memberNumber}" placeholder="Age" min="10" max="99" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender *</label>
+                        <select id="team-member-gender-${sportId}-${memberNumber}" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" id="team-member-contact-${sportId}-${memberNumber}" placeholder="Contact number">
+                    </div>
+                </div>
+            `;
+            container.appendChild(memberForm);
+        }
+
+        // ============================================
+        // FORM VALIDATION & SUBMISSION
+        // ============================================
+
+        function setupFormValidation() {
+            // Real-time validation
+            const validateField = (field, validator, errorMessage) => {
+                if (!field) return;
+                
+                field.addEventListener('blur', () => {
+                    if (!validator(field.value)) {
+                        field.parentElement.classList.add('error');
+                    } else {
+                        field.parentElement.classList.remove('error');
+                    }
+                });
+                
+                field.addEventListener('input', () => {
+                    if (validator(field.value)) {
+                        field.parentElement.classList.remove('error');
+                    }
+                });
+            };
+
+            // Full Name validation
+            const fullName = document.getElementById('full-name');
+            validateField(fullName, (v) => v.trim().length >= 3, 'Full name must be at least 3 characters');
+
+            // Age validation
+            const age = document.getElementById('age');
+            validateField(age, (v) => v && parseInt(v) >= 10 && parseInt(v) <= 99, 'Age must be between 10 and 99');
+
+            // Contact validation
+            const contact = document.getElementById('contact');
+            validateField(contact, (v) => /^\d{11}$/.test(v.replace(/[-\s+]/g, '')), 'Contact must be 11 digits');
+
+            // Email validation
+            const email = document.getElementById('email');
+            validateField(email, (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'Valid email required');
+
+            // Organization validation
+            const organization = document.getElementById('organization');
+            validateField(organization, (v) => v.trim().length >= 2, 'Organization required');
+        }
+
+        function validateAndSubmitForm() {
+            // Validate required fields
+            const requiredFields = [
+                { id: 'full-name', validator: (v) => v.trim().length >= 3, message: 'Full name required (min 3 chars)' },
+                { id: 'age', validator: (v) => v && parseInt(v) >= 10 && parseInt(v) <= 99, message: 'Age must be 10-99' },
+                { id: 'gender', validator: (v) => v, message: 'Gender selection required' },
+                { id: 'contact', validator: (v) => /^\d{11}$/.test(v.replace(/[-\s+]/g, '')), message: 'Valid 11-digit contact required' },
+                { id: 'email', validator: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), message: 'Valid email required' },
+                { id: 'organization', validator: (v) => v.trim().length >= 2, message: 'Organization required' }
+            ];
+
+            let isValid = true;
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element) return;
+                
+                if (!field.validator(element.value)) {
+                    element.parentElement.classList.add('error');
+                    isValid = false;
+                    showToast(field.message, 'error');
+                }
+            });
+
+            if (!document.getElementById('accept-rules').checked) {
+                document.getElementById('accept-rules').parentElement.parentElement.classList.add('error');
+                isValid = false;
+                showToast('You must accept the rules and regulations', 'error');
+            }
+
+            if (!isValid) return;
+
+            // Prepare form data
+            const formData = {
+                timestamp: new Date().toISOString(),
+                personal: {
+                    fullName: document.getElementById('full-name').value.trim(),
+                    age: parseInt(document.getElementById('age').value),
+                    gender: document.getElementById('gender').value,
+                    contact: document.getElementById('contact').value,
+                    email: document.getElementById('email').value.trim(),
+                    organization: document.getElementById('organization').value.trim(),
+                    island: document.getElementById('island')?.value.trim() || ''
+                },
+                sports: selectedSports,
+                teamMembers: getTeamMembersData(),
+                coach: getCoachData()
+            };
+
+            // Generate registration ID
+            const registrationId = generateRegistrationId();
+            
+            // Save to localStorage
+            registrations.push({
+                id: registrationId,
+                ...formData
+            });
+            
+            localStorage.setItem('yacc_registrations', JSON.stringify(registrations));
+            
+            // Send email notifications
+            sendEmailNotifications(formData, registrationId);
+            
+            // Show success message
+            document.getElementById('form').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('registration-id').textContent = registrationId;
+            document.getElementById('success').scrollIntoView({ behavior: 'smooth' });
+            
+            showToast(`Registration successful! ID: ${registrationId}`, 'success');
+            
+            // Update admin stats if admin panel is open
+            if (document.getElementById('admin-panel').style.display === 'block') {
+                loadAdminStats();
+                loadAllRegistrations();
+            }
+        }
+
+        function generateRegistrationId() {
+            const date = new Date();
+            const datePart = date.getFullYear().toString().slice(-2) + 
+                           (date.getMonth() + 1).toString().padStart(2, '0') + 
+                           date.getDate().toString().padStart(2, '0');
+            const randomPart = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return 'YACC' + datePart + randomPart;
+        }
+
+        function getTeamMembersData() {
+            const teamMembers = [];
+            const teamContainers = document.querySelectorAll('[id^="team-members-"]');
+            
+            teamContainers.forEach(container => {
+                const memberRows = container.querySelectorAll('.member-row');
+                memberRows.forEach(row => {
+                    const nameInput = row.querySelector('[id^="team-member-name-"]');
+                    const ageInput = row.querySelector('[id^="team-member-age-"]');
+                    const genderSelect = row.querySelector('[id^="team-member-gender-"]');
+                    const contactInput = row.querySelector('[id^="team-member-contact-"]');
+                    
+                    if (nameInput && nameInput.value.trim()) {
+                        const member = {
+                            name: nameInput.value.trim(),
+                            age: parseInt(ageInput?.value) || 0,
+                            gender: genderSelect?.value || '',
+                            contact: contactInput?.value || ''
+                        };
+                        teamMembers.push(member);
+                    }
+                });
+            });
+            
+            return teamMembers;
+        }
+
+        function getCoachData() {
+            const coachSections = document.querySelectorAll('.form-section.team-section');
+            for (let section of coachSections) {
+                const coachNameInput = section.querySelector('[id^="coach-name-"]');
+                if (coachNameInput && coachNameInput.value.trim()) {
+                    const positionSelect = section.querySelector('[id^="coach-position-"]');
+                    const contactInput = section.querySelector('[id^="coach-contact-"]');
+                    const organizationInput = section.querySelector('[id^="coach-organization-"]');
+                    
+                    return {
+                        name: coachNameInput.value.trim(),
+                        position: positionSelect?.value || '',
+                        contact: contactInput?.value || '',
+                        organization: organizationInput?.value || ''
+                    };
+                }
+            }
+            return null;
+        }
+
+        // ============================================
+        // EMAIL NOTIFICATION SYSTEM
+        // ============================================
+
+        function sendEmailNotifications(formData, registrationId) {
+            const participantEmail = createParticipantEmail(formData, registrationId);
+            const adminEmail = createAdminEmail(formData, registrationId);
+            
+            // Open email client for participant
+            setTimeout(() => {
+                window.open(participantEmail, '_blank');
+            }, 1000);
+            
+            // Also open email client for admin
+            setTimeout(() => {
+                window.open(adminEmail, '_blank');
+            }, 1500);
+            
+            showToast('Opening email client for confirmation...', 'info');
+        }
+
+        function createParticipantEmail(formData, registrationId) {
+            const personal = formData.personal;
+            const sport = formData.sports[0];
+            const date = new Date().toLocaleDateString();
+            
+            const subject = `YACC 2025 Registration Confirmation - ${registrationId}`;
+            
+            const body = `
+Dear ${personal.fullName},
+
+Thank you for registering for the YACC 2025 Sports Event!
+
+REGISTRATION DETAILS:
+• Registration ID: ${registrationId}
+• Name: ${personal.fullName}
+• Sport: ${sport.name}
+• Organization: ${personal.organization}
+• Registration Date: ${date}
+
+NEXT STEPS:
+1. Save your Registration ID: ${registrationId}
+2. Complete payment before December 20, 2025
+3. Bring this email and valid ID to the event
+4. Check-in at registration desk on event day
+
+IMPORTANT NOTES:
+• Registration deadline: December 20, 2025
+• One sport per participant rule is strictly enforced
+• Bring required equipment as specified in rules
+
+CONTACT INFORMATION:
+• Pstr. Joven Borja: 0927-818-2968
+• Email: yacc2025connect@gmail.com
+
+We look forward to seeing you at the event!
+
+YACC 2025 Sports Committee
+Anilao National High School, Iloilo
+December 26-30, 2025
+            `;
+            
+            return `mailto:${personal.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        function createAdminEmail(formData, registrationId) {
+            const personal = formData.personal;
+            const sport = formData.sports[0];
+            const date = new Date().toLocaleString();
+            
+            const subject = `📋 New YACC 2025 Registration - ${registrationId}`;
+            
+            const body = `
+NEW REGISTRATION RECEIVED
+
+Registration ID: ${registrationId}
+Timestamp: ${date}
+
+PERSONAL INFORMATION:
+• Full Name: ${personal.fullName}
+• Age: ${personal.age}
+• Gender: ${personal.gender}
+• Contact: ${personal.contact}
+• Email: ${personal.email}
+• Organization: ${personal.organization}
+• Island: ${personal.island || 'N/A'}
+
+SPORT INFORMATION:
+• Sport: ${sport.name}
+• Type: ${sport.type}
+• Team Members: ${formData.teamMembers ? formData.teamMembers.length : 0}
+• Coach: ${formData.coach?.name || 'N/A'}
+
+TOTAL REGISTRATIONS: ${registrations.length + 1}
+            `;
+            
+            return `mailto:yacc2025connect@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // ============================================
+        // ADMIN FUNCTIONS
+        // ============================================
+
+        function showAdminLogin() {
+            document.getElementById('admin-login-modal').classList.add('active');
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('admin-login-modal').classList.remove('active');
+            document.getElementById('admin-password').value = '';
+        }
+
+        function checkAdminPassword() {
+            const password = document.getElementById('admin-password').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                closeAdminLogin();
+                showAdminPanel();
+                showToast('Admin access granted', 'success');
+            } else {
+                showToast('Incorrect password', 'error');
+                document.getElementById('admin-password').value = '';
+            }
+        }
+
+        function showAdminPanel() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            
+            loadAdminStats();
+            loadAllRegistrations();
+        }
+
+        function loadAdminStats() {
+            const statsGrid = document.getElementById('stats-grid');
+            const totalRegistrations = registrations.length;
+            
+            // Count by sport
+            const sportCounts = {};
+            registrations.forEach(reg => {
+                const sport = reg.sports[0].name;
+                sportCounts[sport] = (sportCounts[sport] || 0) + 1;
+            });
+            
+            // Count by gender
+            const genderCounts = { Male: 0, Female: 0 };
+            registrations.forEach(reg => {
+                if (genderCounts[reg.personal.gender] !== undefined) {
+                    genderCounts[reg.personal.gender]++;
+                }
+            });
+            
+            let statsHTML = `
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-value">${totalRegistrations}</div>
+                    <div>Total Registrations</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-male"></i>
+                    <div class="stat-value">${genderCounts.Male}</div>
+                    <div>Male Participants</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-female"></i>
+                    <div class="stat-value">${genderCounts.Female}</div>
+                    <div>Female Participants</div>
+                </div>
+            `;
+            
+            // Add sport-specific stats for top sports
+            const topSports = Object.entries(sportCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 2);
+            
+            topSports.forEach(([sport, count]) => {
+                statsHTML += `
+                    <div class="stat-card">
+                        <i class="fas fa-running"></i>
+                        <div class="stat-value">${count}</div>
+                        <div>${sport}</div>
+                    </div>
+                `;
+            });
+            
+            statsGrid.innerHTML = statsHTML;
+        }
+
+        function loadAllRegistrations() {
+            const container = document.getElementById('all-registrations');
+            
+            if (registrations.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">No registrations yet.</p>';
+                return;
+            }
+            
+            let html = '';
+            registrations.forEach((reg, index) => {
+                const date = new Date(reg.timestamp).toLocaleString();
+                const sport = reg.sports[0];
+                
+                html += `
+                    <div class="registration-item">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <strong>${reg.personal.fullName}</strong>
+                                <div style="font-size: 0.9rem; color: #666;">
+                                    ${sport.name} • ${reg.personal.organization} • ${date}
+                                </div>
+                                <div style="font-size: 0.85rem; margin-top: 5px;">
+                                    ID: ${reg.id} • Contact: ${reg.personal.contact}
+                                </div>
+                            </div>
+                            <button onclick="viewRegistrationDetails(${index})" style="background: var(--primary); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function viewRegistrationDetails(index) {
+            const reg = registrations[index];
+            const date = new Date(reg.timestamp).toLocaleString();
+            const sport = reg.sports[0];
+            
+            let details = `
+                REGISTRATION DETAILS
+                
+                Registration ID: ${reg.id}
+                Registration Date: ${date}
+                
+                PERSONAL INFORMATION:
+                • Full Name: ${reg.personal.fullName}
+                • Age: ${reg.personal.age}
+                • Gender: ${reg.personal.gender}
+                • Contact: ${reg.personal.contact}
+                • Email: ${reg.personal.email}
+                • Organization: ${reg.personal.organization}
+                • Island: ${reg.personal.island || 'N/A'}
+                
+                SPORT INFORMATION:
+                • Sport: ${sport.name}
+                • Type: ${sport.type}
+                • Players: ${sport.players}
+                
+                TEAM MEMBERS: ${reg.teamMembers ? reg.teamMembers.length : 0}
+                COACH: ${reg.coach?.name || 'N/A'}
+                
+                Total Registrations: ${registrations.length}
+            `;
+            
+            alert(details);
+        }
+
+        function exportRegistrations() {
+            if (registrations.length === 0) {
+                showToast('No registrations to export', 'warning');
+                return;
+            }
+            
+            // Create CSV header
+            let csv = 'Registration ID,Date,Full Name,Age,Gender,Contact,Email,Organization,Island,Sport,Type,Players,Team Members,Coach\n';
+            
+            // Add data rows
+            registrations.forEach(reg => {
+                const sport = reg.sports[0];
+                const date = new Date(reg.timestamp).toLocaleDateString();
+                const teamMembers = reg.teamMembers ? reg.teamMembers.length : 0;
+                const coach = reg.coach?.name || '';
+                
+                csv += `"${reg.id}","${date}","${reg.personal.fullName}","${reg.personal.age}","${reg.personal.gender}","${reg.personal.contact}","${reg.personal.email}","${reg.personal.organization}","${reg.personal.island || ''}","${sport.name}","${sport.type}","${sport.players}","${teamMembers}","${coach}"\n`;
+            });
+            
+            // Create download link
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `yacc_registrations_${new Date().toISOString().slice(0,10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showToast('Registrations exported as CSV', 'success');
+        }
+
+        function sendBulkEmail() {
+            if (registrations.length === 0) {
+                showToast('No registrations to email', 'warning');
+                return;
+            }
+            
+            // Create comma-separated list of emails
+            const emails = registrations.map(reg => reg.personal.email).join(',');
+            const subject = 'YACC 2025 Sports Event Update';
+            
+            const body = `
+Dear YACC 2025 Participants,
+
+This is an update regarding the upcoming sports event.
+
+EVENT DETAILS:
+• Date: December 26-30, 2025
+• Venue: Anilao National High School, Iloilo
+• Registration Deadline: December 20, 2025
+
+IMPORTANT REMINDERS:
+1. Please arrive 1 hour before your scheduled event
+2. Bring your registration confirmation and valid ID
+3. Bring required equipment as specified in rules
+4. Wear appropriate sports attire
+
+CONTACT INFORMATION:
+• Pstr. Joven Borja: 0927-818-2968
+• Email: yacc2025connect@gmail.com
+
+For any questions or concerns, please don't hesitate to contact us.
+
+Best regards,
+YACC 2025 Sports Committee
+            `;
+            
+            window.open(`mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+            showToast('Opening email client for bulk notification', 'info');
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear ALL registration data? This action cannot be undone.')) {
+                localStorage.removeItem('yacc_registrations');
+                registrations = [];
+                loadAdminStats();
+                loadAllRegistrations();
+                showToast('All data cleared', 'success');
+            }
+        }
+
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function checkUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sportParam = urlParams.get('sport');
+            
+            if (sportParam && sportsData[sportParam]) {
+                selectSport(sportParam);
+                setTimeout(() => {
+                    scrollToSection('sports');
+                }, 100);
+            }
+        }
+
+        function showRulesModal() {
+            const modal = document.getElementById('rules-modal');
+            const content = document.getElementById('rules-content');
+            
+            if (!modal || !content) return;
+            
+            let html = `
+                <div class="rules-section">
+                    <h3><i class="fas fa-gavel"></i> GENERAL RULES & GUIDELINES</h3>
+                    <div class="rules-category">
+                        <h4>Eligibility Requirements</h4>
+                        <ul class="rules-list">
+                            <li>Participants must be registered YACC members</li>
+                            <li>Age requirements: 10+ years old</li>
+                            <li>Church/Organization membership required</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-category">
+                        <h4>Registration Rules</h4>
+                        <ul class="rules-list">
+                            <li>One sport per participant rule strictly enforced</li>
+                            <li>Registration deadline: December 20, 2025</li>
+                            <li>No late registrations accepted</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-category">
+                        <h4>Code of Conduct</h4>
+                        <ul class="rules-list">
+                            <li>Sportsmanship expected at all times</li>
+                            <li>Respect officials, opponents, and equipment</li>
+                            <li>Violations may result in disqualification</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            content.innerHTML = html;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRulesModal() {
+            const modal = document.getElementById('rules-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // ============================================
+        // TOAST NOTIFICATIONS
+        // ============================================
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${icons[type] || 'fa-info-circle'}"></i>
+                </div>
+                <div class="toast-content">
+                    <strong>${type.charAt(0).toUpperCase() + type.slice(1)}</strong>
+                    <p>${message}</p>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(100%)';
+                    toast.style.transition = 'opacity 0.3s, transform 0.3s';
+                    setTimeout(() => {
+                        if (toast.parentElement) {
+                            toast.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // ============================================
+        // EXPORT FUNCTIONS FOR GLOBAL USE
+        // ============================================
+
+        window.YACC = {
+            selectSport,
+            showRegistrationForm,
+            showSportsSection,
+            validateAndSubmitForm,
+            showRulesModal,
+            closeRulesModal,
+            showToast,
+            showAdminLogin,
+            exportRegistrations
+        };
+
+        console.log('YACC 2025 Registration System ready!');
+        console.log('No API required - all data stored locally');
+        console.log('Email notifications sent via mailto links');
+    </script>
+</body>
+</html>
